@@ -1,0 +1,49 @@
+<%= form_for [ "admin", @page ] do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:" %>
+      </h2>
+      <ul>
+        <% @page.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </p>
+    <h3>Custom fields</h3>
+  <%= f.fields_for :fields do |c| %>
+    <p>
+      <%= c.label :value, c.object.field_definition.key %>
+      <%= c.text_field :value, class: "form-control" %>
+      <%= c.hidden_field :field_definition_id %>
+    </p>
+  <% end %>
+  <p>
+    <%= f.label :body %>
+    <%= f.cktext_area :body %>
+  </p>
+  <p>
+    <%= f.label :Tag %>
+    <%= f.text_field :slug, class: "form-control" %>
+  </p>
+  
+    <p>
+    <%= f.label :category_id %>
+    <%= f.select :category_id, Category.all.map { |category| [category.name, category.id]}, class: "form-control" %>
+  </p>
+
+    <p>
+    <%= f.hidden_field :type_id %>
+  </p>
+
+  <p>
+    <%= f.submit 'Save' %>
+  </p>
+<% end %>

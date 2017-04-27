@@ -1,0 +1,16 @@
+<%= form_for [ "admin", @menu ] do |f| %>
+  <p>
+    <%= f.text_field :name %>
+  </p>
+  <h3>Menu items</h3>
+  <%= f.fields_for :menu_items do |c| %>
+    <p>
+      <%= c.text_field :title %>
+      <%= c.text_field :url %>
+      <%= c.hidden_field :id %>
+    </p>
+  <% end %>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

@@ -1,0 +1,26 @@
+<p>
+  <%= @page.title %>
+</p>
+
+<dl>
+  <% @page.fields.each do |field| %>
+       <% if field.field_definition.key.to_s == 'url'%>
+          <%= image_tag @page.url, title: @page.caption %>
+        <% elsif field.field_definition.key.to_s == 'caption' %>  
+          <% next%>
+        <% else %>
+    <dt>
+      <%= field.field_definition.key %>
+    </dt>
+    <dd>
+      <%= field.value %>
+    </dd>
+    <% end %>
+  <% end %>
+</dl>
+
+<p>
+<%= raw(@page.body) %>
+</p>
+
+
